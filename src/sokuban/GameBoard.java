@@ -127,7 +127,7 @@ public class GameBoard {
 		if((row >= 0 && row <= width-1)
 				&& (col >= 0 && col <= width-1)) {
 			char target = baseBoard[row].charAt(col);
-			if(target == '.') {
+			if(canPlayerStepOn(target)) {
 				if(hasBoxAt(row,col)) return 'O';
 				if(hasPlayerAt(row,col)) return 'A';
 			}
@@ -149,6 +149,7 @@ public class GameBoard {
 		return false;
 	}
 	
+	
 	public boolean hasExitAt(int r,int c) {
 		if((r >= 0 && r <= width-1) && (c >= 0 && c <= width-1))
 			return (baseBoard[r].charAt(c) == '*');
@@ -168,14 +169,22 @@ public class GameBoard {
 		char item = getBoardNextItem(playerRow,playerCol,dir);
 		if(canPlayerStepOn(item))return true;
 		if(item == 'O') {
-			return canPlayerStepOn(getBoardNextItem(playerRow+getRowDiff(dir),
-					playerCol+getColDiff(dir),dir));
+			return canPlayerStepOn(getBoardNextItem((playerRow+getRowDiff(dir)),
+					(playerCol+getColDiff(dir)),dir));
 		}
 		return false;
 	}
 	public void movePlayer(Direction dir) {
+		int targetRow = playerRow+getRowDiff(dir);
+		int targetCol = playerCol+getColDiff(dir);
 		if(canPlayerMove(dir)) {
-			setPlayerPosition(playerRow+getRowDiff(dir),playerCol+getColDiff(dir));
+			for(int i=0;i<numBoxes;i++) {
+				if(boxRows[i] == targetRow && boxCols[i] == targetCol) {
+					setBoxPosition(i,targetRow+getRowDiff(dir),targetCol+getColDiff(dir));
+					break;
+				}
+			}
+			setPlayerPosition(targetRow,targetCol);
 		}
 	}
 

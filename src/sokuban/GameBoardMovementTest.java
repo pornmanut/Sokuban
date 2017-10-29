@@ -45,7 +45,7 @@ public class GameBoardMovementTest {
     	assertEquals('.', smallBoard.getBoardNextItem(2, 4, GameBoard.Direction.UP));
     	assertEquals('A', smallBoard.getBoardNextItem(1, 3, GameBoard.Direction.DOWN));
     }
-    @Test
+   @Test
     public void testPlayerCanMove() {
     	assertFalse(smallBoard.canPlayerMove(GameBoard.Direction.UP));
     	assertFalse(smallBoard.canPlayerMove(GameBoard.Direction.RIGHT));
@@ -57,14 +57,14 @@ public class GameBoardMovementTest {
     	assertFalse(smallBoard.canPlayerMove(GameBoard.Direction.DOWN));
     	assertTrue(smallBoard.canPlayerMove(GameBoard.Direction.LEFT));
     }
-    //@Test
+    @Test
     public void testPlayerMove() {
     	assertTrue(smallBoard.hasPlayerAt(1, 4));
     	smallBoard.movePlayer(GameBoard.Direction.DOWN);
-    	assertTrue(smallBoard.hasPlayerAt(1, 4));
+    	assertTrue(smallBoard.hasPlayerAt(2, 4));
     	smallBoard.movePlayer(GameBoard.Direction.LEFT);
-    	assertFalse(smallBoard.hasPlayerAt(1, 4));
-    	assertTrue(smallBoard.hasPlayerAt(1, 3));
+    	assertFalse(smallBoard.hasPlayerAt(2, 4));
+    	assertTrue(smallBoard.hasPlayerAt(2, 3));
     	smallBoard.movePlayer(GameBoard.Direction.UP);
     	assertTrue(smallBoard.hasPlayerAt(1, 3));
     	smallBoard.movePlayer(GameBoard.Direction.DOWN);
@@ -79,6 +79,11 @@ public class GameBoardMovementTest {
     	smallBoard.setPlayerPosition(1, 4);
     	smallBoard.setBoxPosition(1, 1, 3);
     	assertFalse(smallBoard.canPlayerMove(GameBoard.Direction.LEFT));
+    	smallBoard.setBoxPosition(0, 1, 1);
+    	smallBoard.setBoxPosition(1, 1, 2);
+    	smallBoard.setPlayerPosition(1, 3);
+    	assertFalse(smallBoard.canPlayerMove(GameBoard.Direction.LEFT));
+    	
     }
     	
     	
