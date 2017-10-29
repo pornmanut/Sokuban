@@ -74,5 +74,14 @@ public class GameBoardTest {
 		smallBoard.setBoxPosition(0, 3, 4);
 		assertArrayEquals(new int[] {3,4},smallBoard.getBoxPosition(0));
 	}
+	@Test
+	public void testExitPositionCheck() {
+		assertFalse(smallBoard.hasExitAt(0, 0));
+		assertFalse(smallBoard.hasExitAt(0, 3));
+		assertFalse(smallBoard.hasExitAt(1, 2));
+		assertFalse(smallBoard.hasExitAt(1, 4));
+		assertTrue(smallBoard.hasExitAt(1, 1));
+		assertTrue(smallBoard.hasExitAt(3, 4));
+	}
 
 }
