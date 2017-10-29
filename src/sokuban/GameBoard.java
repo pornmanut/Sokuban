@@ -12,6 +12,9 @@ public class GameBoard {
 	private int[] boxRows;
 	private int[] boxCols;
 	
+	private enum Direction{
+		UP,RIGHT,DOWN,LEFT
+	}
 	private static String setCharAt(String str,int index,char c) {
 		return str.substring(0,index)+c+str.substring(index+1);
 	}
@@ -49,6 +52,12 @@ public class GameBoard {
 				baseBoard[r] += sch;
 			}
 		}
+	}
+	public boolean canPlayerMove(Direction dir) {
+		return false;
+	}
+	public void movePlayer(Direction dir) {
+		
 	}
 	public String[] getBaseBoard() {
 		return baseBoard;
