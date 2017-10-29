@@ -12,13 +12,14 @@ public class GameBoard {
 	private int[] boxRows;
 	private int[] boxCols;
 	
-	private enum Direction{
-		UP,RIGHT,DOWN,LEFT
-	}
+
 	private static String setCharAt(String str,int index,char c) {
 		return str.substring(0,index)+c+str.substring(index+1);
 	}
 	
+	public enum Direction{
+		UP,RIGHT,DOWN,LEFT
+	}
 
 	private int getColDiff(Direction dir) {
 		switch(dir) {
@@ -75,14 +76,25 @@ public class GameBoard {
 			}
 		}
 	}
-	public boolean canPlayerMove(Direction dir) {
-		return false;
-	}
-	public void movePlayer(Direction dir) {
-		
-	}
+	
 	public String[] getBaseBoard() {
 		return baseBoard;
+	}
+	
+	public String[] getBoard() {
+		//create a new board with original board and add \n;
+		String[] board = new String[height]; 
+		for(int i=0;i<baseBoard.length;i++) {
+			board[i] = baseBoard[i];
+		}
+		//add player position;
+		board[playerRow] = setCharAt(board[playerRow],playerCol,'A');
+		
+		//add box position;
+		for(int i=0;i<numBoxes;i++) {
+			board[boxRows[i]] = setCharAt(board[boxRows[i]],boxCols[i],'O');
+		}
+		return board;
 	}
 	public int getHeight() {
 		return height;
@@ -105,9 +117,25 @@ public class GameBoard {
 				boxCols[i]
 		};
 	}
+	public char getBoardNextItem(int r,int c,Direction dir) {
+		int row = r+getRowDiff(dir);
+		int col = c+getColDiff(dir);
+		if((row >= 0 && row <= width-1)
+				&& (col >= 0 && col <= width-1)) {
+			char target = baseBoard[row].charAt(col);
+			if(target == '.') {
+				if(hasBoxAt(row,col)) return 'O';
+				if(hasPlayerAt(row,col)) return 'A';
+			}
+			return target;
+		}
+		return '#';
+	}
+	
 	public boolean hasPlayerAt(int r,int c) {
 		return (playerRow == r) && (playerCol == c);
 	}
+	
 	public boolean hasBoxAt(int r,int c) {
 		if((r >= 0 && r <= width-1) && (c >= 0 && c <= width-1))
 			for(int i=0;i<numBoxes;i++) {
@@ -116,13 +144,13 @@ public class GameBoard {
 			}
 		return false;
 	}
+	
 	public boolean hasExitAt(int r,int c) {
 		if((r >= 0 && r <= width-1) && (c >= 0 && c <= width-1))
 			return (baseBoard[r].charAt(c) == '*');
 		return false;
 	}
 
-	
 	public void setPlayerPosition(int r,int c) {
 		playerRow = r;
 		playerCol = c;
@@ -131,27 +159,20 @@ public class GameBoard {
 		boxRows[i] = r;
 		boxCols[i] = c;
 	}
+	
+	public boolean canPlayerMove(Direction dir) {
+		return false;
+	}
+	public void movePlayer(Direction dir) {
+		
+	}
 
 	public String toString() {
-		
-		//create return string;
 		String map = "";
-		//create a new board with original board and add \n;
-		String[] sector = new String[height]; 
-		for(int i=0;i<baseBoard.length;i++) {
-			sector[i] = baseBoard[i]+"\n";
-		}
-		//add player position;
-		sector[playerRow] = setCharAt(sector[playerRow],playerCol,'A');
-		
-		//add box position;
-		for(int i=0;i<numBoxes;i++) {
-			sector[boxRows[i]] = setCharAt(sector[boxRows[i]],boxCols[i],'O');
-		}
-		
-		//combine sector to return
-		for(int i=0;i<sector.length;i++) {
-			map += sector[i];
+		String[] board = getBoard();
+		//combine board to return
+		for(int i=0;i<board.length;i++) {
+			map += board[i]+"\n";
 		}
 		return map;
 	}
