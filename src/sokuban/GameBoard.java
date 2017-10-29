@@ -194,7 +194,7 @@ public class GameBoard {
         }
         return (boxAtExit == numBoxes);
     }
-
+    @Override
 	public String toString() {
 		String map = "";
 		String[] board = getBoard();
