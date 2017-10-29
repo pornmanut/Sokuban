@@ -86,7 +86,7 @@ public class GameBoard {
 		return false;
 	}
 	public boolean hasExitAt(int r,int c) {
-		return false;
+		return (baseBoard[r].charAt(c) == '*');
 	}
 	public String toString() {
 		return "";
