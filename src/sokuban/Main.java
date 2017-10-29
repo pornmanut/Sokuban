@@ -18,7 +18,10 @@ public class Main {
 	    	System.out.println("Round "+round);
 	    	System.out.print(board);
 	    	System.out.println();
-	    	
+	    	if(board.isSolved()) {
+	    		System.out.println("You won.");
+	    		break;
+	    	}
 	    	System.out.print("Your choice (awsd - movement, q - quit):");
 	    	
 	    	String choiceStr = scanner.nextLine();
@@ -57,6 +60,7 @@ public class Main {
 	    		System.out.println("You can't move to that direction");
 	    		continue;
 	    	}
+	    
 	    }
 	    scanner.close();
 	}

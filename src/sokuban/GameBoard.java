@@ -187,6 +187,13 @@ public class GameBoard {
 			setPlayerPosition(targetRow,targetCol);
 		}
 	}
+    public boolean isSolved() {
+    	int boxAtExit = 0;
+        for(int i=0;i<numBoxes;i++) {
+        	if(hasExitAt(boxRows[i],boxCols[i])) boxAtExit++;
+        }
+        return (boxAtExit == numBoxes);
+    }
 
 	public String toString() {
 		String map = "";
