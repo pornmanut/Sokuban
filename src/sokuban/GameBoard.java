@@ -83,10 +83,17 @@ public class GameBoard {
 		return (playerRow == r) && (playerCol == c);
 	}
 	public boolean hasBoxAt(int r,int c) {
+		if((r >= 0 && r <= width-1) && (c >= 0 && c <= width-1))
+			for(int i=0;i<numBoxes;i++) {
+				if(boxRows[i] == r && boxCols[i] == c)
+					return true;
+			}
 		return false;
 	}
 	public boolean hasExitAt(int r,int c) {
-		return (baseBoard[r].charAt(c) == '*');
+		if((r >= 0 && r <= width-1) && (c >= 0 && c <= width-1))
+			return (baseBoard[r].charAt(c) == '*');
+		return false;
 	}
 	public String toString() {
 		return "";

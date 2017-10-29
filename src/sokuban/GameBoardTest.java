@@ -80,8 +80,18 @@ public class GameBoardTest {
 		assertFalse(smallBoard.hasExitAt(0, 3));
 		assertFalse(smallBoard.hasExitAt(1, 2));
 		assertFalse(smallBoard.hasExitAt(1, 4));
+		assertFalse(smallBoard.hasExitAt(-30, 4));
 		assertTrue(smallBoard.hasExitAt(1, 1));
 		assertTrue(smallBoard.hasExitAt(3, 4));
+	}
+	@Test
+	public void TestBoxPostionCheck() {
+		assertFalse(smallBoard.hasBoxAt(0, 0));
+		assertFalse(smallBoard.hasBoxAt(0, 3));
+		assertFalse(smallBoard.hasBoxAt(1, 4));
+		assertTrue(smallBoard.hasBoxAt(1, 2));
+		assertTrue(smallBoard.hasBoxAt(2, 4));
+		assertFalse(smallBoard.hasBoxAt(-50, 10));
 	}
 
 }
