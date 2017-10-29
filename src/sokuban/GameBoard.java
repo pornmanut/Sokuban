@@ -12,6 +12,9 @@ public class GameBoard {
 	private int[] boxRows;
 	private int[] boxCols;
 	
+	private static String setCharAt(String str,int index,char c) {
+		return str.substring(0,index)+c+str.substring(index+1);
+	}
 	
 	public GameBoard(String[] map) {
 		loadBoard(map);
@@ -95,8 +98,29 @@ public class GameBoard {
 			return (baseBoard[r].charAt(c) == '*');
 		return false;
 	}
+
 	public String toString() {
-		return "";
+		
+		//create return string;
+		String map = "";
+		//create a new board with original board and add \n;
+		String[] sector = new String[height]; 
+		for(int i=0;i<baseBoard.length;i++) {
+			sector[i] = baseBoard[i]+"\n";
+		}
+		//add player position;
+		sector[playerRow] = setCharAt(sector[playerRow],playerCol,'A');
+		
+		//add box position;
+		for(int i=0;i<numBoxes;i++) {
+			sector[boxRows[i]] = setCharAt(sector[boxRows[i]],boxCols[i],'O');
+		}
+		
+		//combine sector to return
+		for(int i=0;i<sector.length;i++) {
+			map += sector[i];
+		}
+		return map;
 	}
 	
 	
