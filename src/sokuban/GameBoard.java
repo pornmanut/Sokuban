@@ -17,6 +17,10 @@ public class GameBoard {
 		return str.substring(0,index)+c+str.substring(index+1);
 	}
 	
+    public static boolean canPlayerStepOn(char item) {
+        return (item == '.') || (item == '*') || (item == ' ');
+    }
+	
 	public enum Direction{
 		UP,RIGHT,DOWN,LEFT
 	}
@@ -77,9 +81,6 @@ public class GameBoard {
 		}
 	}
 	
-	public String[] getBaseBoard() {
-		return baseBoard;
-	}
 	
 	public String[] getBoard() {
 		//create a new board with original board and add \n;
@@ -95,6 +96,9 @@ public class GameBoard {
 			board[boxRows[i]] = setCharAt(board[boxRows[i]],boxCols[i],'O');
 		}
 		return board;
+	}
+	public String[] getBaseBoard() {
+		return baseBoard;
 	}
 	public int getHeight() {
 		return height;
@@ -161,10 +165,12 @@ public class GameBoard {
 	}
 	
 	public boolean canPlayerMove(Direction dir) {
-		return false;
+		return canPlayerStepOn(getBoardNextItem(playerRow,playerCol,dir));
 	}
 	public void movePlayer(Direction dir) {
-		
+		if(canPlayerMove(dir)) {
+			setPlayerPosition(playerRow+getRowDiff(dir),playerCol+getColDiff(dir));
+		}
 	}
 
 	public String toString() {
