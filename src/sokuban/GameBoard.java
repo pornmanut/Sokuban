@@ -19,6 +19,28 @@ public class GameBoard {
 		return str.substring(0,index)+c+str.substring(index+1);
 	}
 	
+
+	private int getColDiff(Direction dir) {
+		switch(dir) {
+		case LEFT:
+			return -1;
+		case RIGHT:
+			return 1;
+		default:
+			return 0;
+		}
+	}
+	private int getRowDiff(Direction dir) {
+		switch(dir) {
+		case UP:
+			return -1;
+		case DOWN:
+			return 1;
+		default:
+			return 0;
+		}
+	}
+	
 	public GameBoard(String[] map) {
 		loadBoard(map);
 	}
@@ -74,10 +96,6 @@ public class GameBoard {
 	public int getPlayerCol() {
 		return playerCol;
 	}
-	public void setPlayerPosition(int r,int c) {
-		playerRow = r;
-		playerCol = c;
-	}
 	public int getNumBoxes() {
 		return numBoxes;
 	}
@@ -86,10 +104,6 @@ public class GameBoard {
 				boxRows[i],
 				boxCols[i]
 		};
-	}
-	public void setBoxPosition(int i,int r,int c) {
-		boxRows[i] = r;
-		boxCols[i] = c;
 	}
 	public boolean hasPlayerAt(int r,int c) {
 		return (playerRow == r) && (playerCol == c);
@@ -106,6 +120,16 @@ public class GameBoard {
 		if((r >= 0 && r <= width-1) && (c >= 0 && c <= width-1))
 			return (baseBoard[r].charAt(c) == '*');
 		return false;
+	}
+
+	
+	public void setPlayerPosition(int r,int c) {
+		playerRow = r;
+		playerCol = c;
+	}
+	public void setBoxPosition(int i,int r,int c) {
+		boxRows[i] = r;
+		boxCols[i] = c;
 	}
 
 	public String toString() {
