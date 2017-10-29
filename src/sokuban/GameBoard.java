@@ -165,7 +165,13 @@ public class GameBoard {
 	}
 	
 	public boolean canPlayerMove(Direction dir) {
-		return canPlayerStepOn(getBoardNextItem(playerRow,playerCol,dir));
+		char item = getBoardNextItem(playerRow,playerCol,dir);
+		if(canPlayerStepOn(item))return true;
+		if(item == 'O') {
+			return canPlayerStepOn(getBoardNextItem(playerRow+getRowDiff(dir),
+					playerCol+getColDiff(dir),dir));
+		}
+		return false;
 	}
 	public void movePlayer(Direction dir) {
 		if(canPlayerMove(dir)) {
