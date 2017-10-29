@@ -22,7 +22,7 @@ public class GameBoard {
     }
 	
 	public enum Direction{
-		UP,RIGHT,DOWN,LEFT
+		UP,RIGHT,DOWN,LEFT,STILL
 	}
 
 	private int getColDiff(Direction dir) {
@@ -182,7 +182,8 @@ public class GameBoard {
 		}
 		return map;
 	}
-	
+
 	
 }
+
 
